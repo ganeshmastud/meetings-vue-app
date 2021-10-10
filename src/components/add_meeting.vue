@@ -1,29 +1,29 @@
 <template>
-    <div class="container col-11">
-        <h2>Add a new meeting</h2>
+    <div class="container col-12 pr-2 bg-primary rounded-lg">
+        <h3 class="pt-2">Add a new meeting</h3>
         <hr>
          <div class="add-meeting">
             <form @submit="addMeeting" method="post">
-                <label for="name">name</label> <br>
-                <input type="text" id="name" v-model="addMeetingData.name">
+                <label for="name" class="mb-1">name</label> <br>
+                <input type="text" class="col-12 mb-2" id="name" v-model="addMeetingData.name">
                 <br>
-                <label for="add-date">Date</label>
+                <label for="add-date" class="mb-1">Date</label>
                 <br>
                 
-                <input type="date" id="add-date" v-model="addMeetingData.date" > <br>
-                <label for="start-time">Start time (hh:mm)</label><br>
-                <input id="start-time" type="time" v-model="start_Time"><br>
-                <label for="end-time">End time (hh:mm)</label><br>
-                <input id="end-time" type="time" v-model="end_Time"><br>
-                <label for="description">Description</label><br>
-                <textarea v-model="addMeetingData.description" id="description"  placeholder="What is the agenda of the meeting?"></textarea>
+                <input type="date" class="col-12 mb-2" id="add-date" v-model="addMeetingData.date" > <br>
+                <label for="start-time" class="mb-1">Start time (hh:mm)</label><br>
+                <input id="start-time" class="mb-2" type="time" v-model="start_Time"><br>
+                <label for="end-time" class="mb-1">End time (hh:mm)</label><br>
+                <input id="end-time" class="mb-2" type="time" v-model="end_Time"><br>
+                <label for="description" class="mb-1">Description</label><br>
+                <textarea class="col-12 mb-2" v-model="addMeetingData.description" id="description"  placeholder="What is the agenda of the meeting?"></textarea>
                 <br>
-                <label for="add-member">EmailIDs of attendees, or team's short</label><br>
-                <input type="text" id="add-members"   placeholder="john@example.com, @annual-day, mark@example.com"
+                <label for="add-member" class="mb-1">EmailIDs of attendees, or team's short</label><br>
+                <input type="text" class="col-12" id="add-members"   placeholder="john@example.com, @annual-day, mark@example.com"
                     v-model="addmembers">
-                <br><span class="note">Seperate emailids / team short names by commas - team short names always beginwith @</span> 
+                <br><span class="note mb-3">Seperate emailids / team short names by commas - team short names always beginwith @</span> 
                 <br>
-                <button class="btn btn-submit" type="submit">Add meeting</button>
+                <button class="btn btn-success mb-5" type="submit">Add meeting</button>
             </form>
             
         </div>
@@ -100,5 +100,7 @@ export default {
 </script>
 
 <style scoped>
-    
+    .note{
+        display: inline-block;
+    }
 </style>

@@ -1,18 +1,17 @@
 <template>
-    <div class="container">
+    <div class="container team-container col-11">
         <h1> Teams</h1> 
-        <button @click="teamForm=!teamForm">Add Team</button>
-        <div v-if="teamForm" class="addTeamForm">
-        <addTeam ></addTeam>
-        </div>
-        
+        <hr>
         <viewTeams ></viewTeams>
+        
+        
+        
     </div>
     
 </template>
 
 <script>
-import addTeam from './add_Team.vue'
+// import addTeam from './add_Team.vue'
 import viewTeams from './viewTeams.vue'
 
 export default {
@@ -24,7 +23,7 @@ export default {
     },
     components:{
 
-        addTeam,
+        // addTeam,
         viewTeams
     }
 

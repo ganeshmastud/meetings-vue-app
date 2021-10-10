@@ -1,35 +1,40 @@
 <template>
     <div>
-        <div class="container">
-            <h1>Search for meetings</h1>
+        <div class="container col-12 bg-primary  rounded-lg">
+            <h3 class="pt-2">Search for meetings</h3>
+            <hr>
             <form @submit="searchMeeting" method="get">
-                <label for="filter-meet">Date</label>
+                <label for="filter-meet" class="mb-1">Date</label>
                 <br>
-                <select v-model="filter_meet" id="filter-meet">
-                    <option value="All">All</option>
+                <select v-model="filter_meet"  id="filter-meet" class="col-12 mb-2 p-1">
+                    <!-- <option value=""></option> -->
+                    <option value="All" >All</option>
                     <option value="Past">Past</option>
                     <option value="Today">Today</option>
                     <option value="Upcoming">Upcoming</option>
                 </select>
                 
                 <br>
-                <label for="search-for">Search for</label><br>
-                <textarea v-model="description" id="search-for"
+                <label for="search-for" class="mb-1">Search for</label><br>
+                <textarea v-model="description" id="search-for" class="col-12 mb-2"
                     placeholder="Search using words which describe the meeting"></textarea>
                 <br>
-                <button class="btn btn-submit" type="submit">Search</button>
+                <button class="btn btn-success mb-5" type="submit">Search</button>
             </form>
         </div>
-        <div class="container">
-             <div class="card meeting-card" v-for="(meeting,idx) in meetings" :key="idx">
+        <div class="container col-12 p-0">
+            <h3 class="p-0">Meetings matching search criteria</h3>
+            <hr>
+             <div class="card meeting-card pl-2 mb-4  rounded-lg" v-for="(meeting,idx) in meetings" :key="idx">
                 
-                    <div class="date-time">
-                        <h4> {{meeting.date}} </h4><span class="meet-time">{{meeting.startTime}} - {{meeting.endTime}}</span>
+                    <div class="date-time d-flex flex-row ">
+                        <h4 class=" mr-3"> {{meeting.date}} </h4><span class="meet-time">{{meeting.startTime}} - {{meeting.endTime}}</span>
                     </div>
                 
                     <span class="meet-title">{{meeting.name}}</span>
-                    
-                
+                    <excuseYourself :_Id=meeting._id service="meetings" remove_yourself="remove_attendee"></excuseYourself>
+    
+
                     <hr>
                     <span class="meet-attendees">Attendees: 
                         
@@ -37,7 +42,6 @@
 
                     
                     </span>
-                    <excuseYourself :_Id=meeting._id service="meetings" remove_yourself="remove_attendee"></excuseYourself>
                     <!-- {{meeting._id}} -->
                     <addMemberToMeeting :_id=meeting._id  dat="cool"></addMemberToMeeting>
                     <!-- <form @submit="addMemberToMeet" method="post">
@@ -138,5 +142,10 @@ export default {
 </script>
 
 <style scoped>
-    
+    .meet-time{
+        display: inline-block;
+        margin-top:1px;
+    }
+   
+
 </style>

@@ -26,7 +26,7 @@
             </ul>
             <div class="calendar-meetings">
                 <div class="meetings" v-for="(meeting,idx) in meetings" :key="idx" >
-                    <div class="meet position-absolute" v-bind:style="{top:meeting.top +'px' , height:meeting.height+'px'}"> 
+                    <div class="meet position-absolute " v-bind:style="{top:meeting.top +'px' , height:meeting.height+'px'}"> 
                         <span claas="meetName" >{{meeting.meeting_name}}</span><br> 
                         <span class="attendee" v-for="attendee,idx in meeting.attendees" :key="idx">{{attendee}}, </span>
                     </div>
@@ -174,14 +174,40 @@ export default {
         padding-top:.4em;
     }
     .meet{
-        width: 97.5%;  
+        width: 91%;  
         display: inline-block;
         margin-top:.3rem;
         margin-left:1.5rem;
+        /* margin-right:24.5em; */
         background-color: lightgrey;
         font-size: .8em;
         padding-left:.5rem ;
+        overflow :scroll;
     }
-    
+    @media only screen and (min-width: 400px) {
+            .meet{
+                width: 93%;  
+            }
+       }
+    @media only screen and (min-width: 500px) {
+            .meet{
+                width: 94.5%;  
+            }
+       }
+    @media only screen and (min-width: 700px) {
+            .meet{
+                width: 96.3%;  
+            }
+       }
+       @media only screen and (min-width: 900px) {
+            .meet{
+                width: 96.7%;  
+            }
+       }
+    @media only screen and (min-width: 1100px) {
+        .meet{
+            width: 97.5%; 
+        }
+    }
 
 </style>

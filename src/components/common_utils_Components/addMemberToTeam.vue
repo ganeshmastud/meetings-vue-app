@@ -1,9 +1,9 @@
 
 <template>
-    <div class="container">
+    <div class="container p-0 mt-2 mb-2">
         <!-- <span>meet id {{_id}} {{dat}}</span> -->
          <form @submit="addMemberToTeam" method="post">
-                <select v-model="add_member" id="select-member">
+                <select v-model="add_member" class="col-6  mr-2 " id="select-member">
                 <option v-for="member,idx in members" v-bind:value="member" :key="idx">
                     {{ member.email }}
                 </option>
@@ -85,5 +85,11 @@ export default {
 </script>
 
 <style scoped>
+    #select-member{
+        padding: 0.35em;
+    }
+    .btn{
+        margin-top:-5px;
+    }
     
 </style>

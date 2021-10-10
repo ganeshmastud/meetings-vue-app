@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button class="btn left-meet" @click="excuseYourself">Excuse yourself</button>
+        <button class="btn btn-danger" @click="excuseYourself">Excuse yourself</button>
     </div>
 </template>
 

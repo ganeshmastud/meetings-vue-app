@@ -1,6 +1,6 @@
 
 <template>
-    <div class="container">
+    <div class="container col-12 p-0 mt-2 mb-2">
         <!-- <span>meet id {{_id}} {{dat}}</span> -->
          <form @submit="addMemberToMeet" method="post">
                 <select v-model="add_member" id="select-member">
@@ -10,7 +10,7 @@
                 
             </select>
             
-            <button class="btn btn-success" type="submit">Add</button>
+            <button class="btn btn-success ml-2 " type="submit">Add</button>
         </form>
     </div>
 </template>
@@ -86,5 +86,21 @@ export default {
 </script>
 
 <style scoped>
-    
+    #select-member{
+        padding:0.35em;
+        /* width:7em; */
+    }
+    .btn{
+        margin-top:-5px;
+    }
+    /* @media only screen and (min-width: 400px) {
+         #select-member{
+             width:10em;
+         }
+    } */
+    @media only screen and (max-width: 500px) {
+         #select-member{
+             width:12em;
+         }
+    }
 </style>
