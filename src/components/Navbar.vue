@@ -25,8 +25,8 @@
                     </li> -->
                 </ul>
                 <ul class="nav navbar-nav">
-                    <li class="nav-item">
-                        <span class="nav-link">
+                    <li class="nav-item" v-if="isAuthenticated">
+                        <span class="nav-link" >
                             Hello {{email}}
                         </span>
                     </li>
