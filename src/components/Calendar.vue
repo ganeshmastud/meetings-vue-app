@@ -144,7 +144,7 @@ export default {
   },
   created () {
     //   console.log(typeof this.date_pick);
-        if(isAuthenticated){
+        if(this.isAuthenticated){
             axios
             .get('https://mymeetingsapp.herokuapp.com/api/calendar?date='+this.date_pick)
             .then(response => (this.get_meetings(response.data)))
