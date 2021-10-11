@@ -28,17 +28,18 @@
                         />
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-primary col-12" type="submit">Login</button>
+                        <button class="btn btn-submit col-12" type="submit">Login</button>
                         <!-- <app-spinner v-if="processing" /> -->
                     </div>
                 </form>
                 <div class="text-muted">
-                    <div>
-                        <small><strong>NOTE</strong></small>
-                    </div>
-                    <div>
+                    
+                    <div class="create-acc">
                         <small>Don't have an account? <router-link to="/signup">SignUp</router-link></small>
                     </div>
+                </div>
+                <div class="errors">
+                    <span>{{error}}</span>
                 </div>
             </div>
         </div>
@@ -53,6 +54,7 @@
         data() {
             return {
                 processing: false,
+                error:'',
                 form: {
                     email: '',
                     password: ''
@@ -61,12 +63,26 @@
         },
         methods: {
             login() {
-                this.$store.dispatch( 'login', this.form )
-                    .then( () => this.$router.push(  '/'  ) )
-                    
-                    .catch( error => {
-                        alert( error.message );
+                if(this.form.email.length >0 && this.form.password.length > 0){
+                    this.$store.dispatch( 'login', this.form )
+                    .then( () =>{
+                        
+                        alert("Login Successfully");
+                        // setTimeout(()=>{
+                        //     this.error="Login Successfully";
+                        // },1000)
+                        this.error=''
+                        this.$router.push(  '/'  );
+                    })
+                    .catch( err => {
+                        // alert(err);
+                        console.log("login error :",err);
+                        this.error="Please enter correct username and password."
                     });
+                }else{
+                    this.error="please fill all the form fields."
+                }
+                
                     // .then(()=>alert("Login successfull"))
             }
         }
@@ -74,5 +90,14 @@
 </script>
 
 <style scoped>
-
+    .create-acc{
+        text-align: center;
+    }
+    .errors{
+        text-align: center;
+        color:red;
+    }
+    label{
+        color:black
+    }
 </style>

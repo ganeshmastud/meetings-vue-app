@@ -3,7 +3,8 @@
     <div class="container p-0 mt-2 mb-2">
         <!-- <span>meet id {{_id}} {{dat}}</span> -->
          <form @submit="addMemberToTeam" method="post">
-                <select v-model="add_member" class="col-6  mr-2 " id="select-member" required>
+                <select v-model="add_member" class=" col-6  mr-2 " id="select-member" required>
+                <option disabled value="">Please select one</option>
                 <option v-for="member,idx in members" v-bind:value="member" :key="idx">
                     {{ member.email }}
                 </option>
@@ -22,7 +23,7 @@ export default {
     name:'addMemberToTeam',
     data(){
         return{
-            add_member:null,
+            add_member:'',
             error:'',
             members:[]
            
@@ -35,7 +36,7 @@ export default {
     methods:{
         //gets all the register user email if and pass it to members array
         checkIfmemberAdded(){
-            if(this.add_member===null){
+            if(this.add_member.length<=0){
                 this.error="Please select member.";
             }else{
                 this.error='';

@@ -1,5 +1,5 @@
 <template>
-    <div class="container team-container col-11">
+    <div class="container team-container col-11 mt-4">
         <h1> Teams</h1> 
         <hr>
         <viewTeams ></viewTeams>

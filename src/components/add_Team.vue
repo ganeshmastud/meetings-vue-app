@@ -1,7 +1,7 @@
 <template>
     <div class="container add-team-container col-4 ">
         <div class="add-team-form  pl-2 pr-2 rounded-lg">
-            <h3 style="text-align:center">Add New Team</h3>
+            <h3 class="mt-3" style="text-align:center">Add New Team</h3>
             <hr>
             <div v-if="msg" class="error"><span>{{msg}}</span> </div>
              <form @submit.prevent="addTeam" method="post">
@@ -110,7 +110,7 @@ export default {
         
         /* margin-top:5em; */
         overflow: hidden;
-        background-color: #4ea1a1;   
+        background-color: #5eacac;
     }
     
     .close-form {
@@ -130,13 +130,33 @@ export default {
         
     } */
     .btn-submit{
-         background-color: #276969;
+         background-color: #258b8b;
     }
     .btn-submit:hover{
-         background-color: #70afaf;
+         background-color: #0d9c9c;
+    }
+    .btn-submit:active{
+        background-color: #258383;        
+
     }
     .error{
         color:red;
     }
+    label,h3{
+        color:white;
+    }
+    input, textarea{
+        border-radius: 3px;
+        border:none;
+        outline: none;
+    }
+    input:hover,  textarea:hover{
+        box-shadow: 1px 2px 1px 1px grey;
+        
+    }
+    input:focus, textarea:focus{
+        outline: 2px solid rgb(70, 143, 143);
+    }
+  
 
 </style>

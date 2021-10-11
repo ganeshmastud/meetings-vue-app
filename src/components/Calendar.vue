@@ -1,7 +1,7 @@
 <template>
     
-    <div class="container col-11">
-        <h2> Calendar </h2>
+    <div class="container col-11 mt-4">
+        <h1> Calendar </h1>
         <hr>
         <div class="calendar-date d-flex justify-content-between">
             <div class="display-date">
@@ -14,7 +14,7 @@
                 
             </div>
         </div>
-        <div class="noOfMeetings" style="text-align:center"><span> Number of meetings you have in a day {{meetings.length}}.</span></div>
+        <div class="noOfMeetings" style="text-align:center"><span> Number of meetings you have in a day :{{meetings.length}}</span></div>
         <div class="meetings-in-day position-relative">
             <!-- .hours>(.meeting-hr-$>span.${$}+div.hour.hr-$)*24 -->
             <ul>
@@ -48,6 +48,7 @@
  
  
 import axios from 'axios';
+// import dateFilter from '@/filter/date.js'
 // import { prototype } from 'vue/types/umd';
 export default {
     name: 'Calendar',
@@ -137,11 +138,14 @@ export default {
             // console.log(this.date_pick);
             // console.log("event", event);
             this.meetings=[];
+            
             axios
         .get('https://mymeetingsapp.herokuapp.com/api/calendar?date='+this.date_pick)
         .then(response => (this.get_meetings(response.data)));
-        }
 
+        // this.date_pick = dateFilter(this.date_pick, 'local');
+        }
+        
   },
   created () {
     //   console.log(typeof this.date_pick);
@@ -149,6 +153,8 @@ export default {
             axios
             .get('https://mymeetingsapp.herokuapp.com/api/calendar?date='+this.date_pick)
             .then(response => (this.get_meetings(response.data)))
+
+            // this.date_pick = dateFilter(this.date_pick, 'local');
             }
     }
      
@@ -177,7 +183,7 @@ export default {
         
         height: 40px;
         margin-bottom: .2em;
-        background-color: aqua;
+        background-color: #5eacac;
     }
     .display-date{
         padding-top:.4em;

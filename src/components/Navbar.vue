@@ -11,13 +11,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item " v-if="isAuthenticated">
-                        <router-link class="nav-link" to="/">Calendar</router-link>
+                        <router-link class="nav-link" to="/" >Calendar</router-link>
                     </li>
                     <li class="nav-item" v-if="isAuthenticated">
                         <router-link class="nav-link" to="/meetings">Meetings</router-link>
                     </li>
                     <li class="nav-item" v-if="isAuthenticated">
-                        <router-link class="nav-link " to="/teams">Teams</router-link>
+                        <router-link class="nav-link"  to="/teams" exact>Teams</router-link>
                     </li>
                     
                     <!-- <li class="nav-item">
@@ -26,15 +26,15 @@
                 </ul>
                 <ul class="nav navbar-nav">
                     <li class="nav-item" v-if="isAuthenticated">
-                        <span class="nav-link" >
+                        <span class="nav-link " >
                             Hello {{email}}
                         </span>
                     </li>
-                    <li class="nav-item" v-if="isAuthenticated">
-                        <span class="nav-link cursor-pointer" @click="logout()">Logout</span>
+                    <li class="nav-item  cursor-pointer" v-if="isAuthenticated">
+                        <span class="nav-link" @click="logout()">Logout</span>
                     </li>
                      <li class="nav-item" v-else>
-                         <router-link class="nav-link " to="/login">Login</router-link>
+                         <router-link class="nav-link cursor-pointer" to="/login">Login</router-link>
                      </li>
                 </ul>
             
@@ -51,7 +51,13 @@
 // import store from '@/stores/index';
 export default {
     name: 'Navbar'
-    ,
+    ,data(){
+        return{
+            active:{
+               'background-color': 'rgb(218, 203, 185)'
+            }
+        }
+    },
     computed: {
         // ...mapState( [ 'email' ] ),
         // ...mapGetters( [ 'isAuthenticated' ] )
@@ -73,6 +79,16 @@ export default {
 </script>
 
 <style scoped>
+.nav-item{
+    cursor: pointer;
+   
+}
+.nav-item:hover{
+     background-color: rgb(218, 203, 185);
+}
+.nav-item a.router-link-exact-active{
+    background-color: rgb(218, 203, 185);   
+}
 
 </style>
 

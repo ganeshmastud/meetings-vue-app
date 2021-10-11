@@ -7,7 +7,7 @@
                 <label for="filter-meet" class="mb-1">Date</label>
                 <br>
                 <select v-model="filter_meet"  id="filter-meet" class="col-12 mb-2 p-1" required>
-                    <!-- <option value=""></option> -->
+                   <option disabled value="">Please select one</option>
                     <option value="All" >All</option>
                     <option value="Past">Past</option>
                     <option value="Today">Today</option>
@@ -21,7 +21,7 @@
                 <br>
                 <button class="btn  btn-submit mb-4" @click="checkFormData()" type="submit">Search</button>
             </form>
-            <div v-if="checkformdata" class="note">Note: <span>{{checkformdata}}</span></div>
+            <div v-if="checkformdata" class="note"><span>{{checkformdata}}</span></div>
         </div>
         <div class="container col-12 p-0">
             <h3 class="p-0">Meetings matching search criteria</h3>
@@ -80,7 +80,7 @@ export default {
     name:'search_meetings',
     data(){
         return{
-            filter_meet:null,
+            filter_meet:'',
             description:null,
             add_member:null,
             // meeting_id:null,
@@ -104,7 +104,7 @@ export default {
     },
     methods: {
         checkFormData(){
-            if(this.filter_meet===null || this.description===null){
+            if(this.filter_meet.length<=0 || this.description===null){
                 this.checkformdata="Please fill all the details."
             }else{
                  this.checkformdata='';
@@ -168,8 +168,8 @@ export default {
             axios.get(`https://mymeetingsapp.herokuapp.com/api/meetings?period=${this.filter_meet}&search=${this.description}`)
             .then(result => {
                 this.getMeetings(result.data)
-                this.filter_meet=null;
-                this.description=null;
+                // this.filter_meet='';
+                // this.description=null;
             })
             
         },
@@ -185,13 +185,19 @@ export default {
         margin-top:6px;
     }
     .search-meeting-container{
-        background-color: #4ea1a1;
+        background-color: #5eacac;
     }
     .btn-submit{
-         background-color: #276969;
+         background-color: #258b8b;
+         color:white
     }
     .btn-submit:hover{
-         background-color: #70afaf;
+         background-color: #0d9c9c;
+         /* color:black; */
+    }
+    .btn-submit:active{
+        background-color: #258383;        
+
     }
     .meeting-card:hover{
         border: 2px solid goldenrod;
@@ -199,6 +205,9 @@ export default {
     }
     .error{
         color:red;
+    }
+    label, h3{
+        color:white;
     }
     .note{
         color:white;

@@ -26,7 +26,7 @@
                 <br>
                 <button class="btn btn-submit mb-4" @click="checkFormData()" type="submit">Add meeting</button>
             </form>
-             <div v-if="checkformdata" class="note">Note: <span>{{checkformdata}}</span></div>
+             <div v-if="checkformdata" class="note"> <span>{{checkformdata}}</span></div>
         </div>
         
     </div>
@@ -130,13 +130,21 @@ export default {
         color:white;
     }
     .add-meeting-container{
-        background-color: #4ea1a1;
+        background-color: #5eacac;
     }
     .btn-submit{
-         background-color: #276969;
+         color:white;
+         background-color: #258b8b;
     }
     .btn-submit:hover{
-         background-color: #70afaf;
+         background-color: #0d9c9c;
+    }
+    .btn-submit:active{
+        background-color: #258383;        
+
+    }
+    label,h3{
+        color:white;
     }
     .note{
         color:white;
