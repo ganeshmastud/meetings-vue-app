@@ -1,9 +1,9 @@
 <template>
     <div>
-        <div class="container col-12 bg-primary  rounded-lg">
+        <div class="container search-meeting-container col-12   rounded-lg">
             <h3 class="pt-2">Search for meetings</h3>
             <hr>
-            <form @submit="searchMeeting" method="get">
+            <form @submit.prevent="searchMeeting" method="get">
                 <label for="filter-meet" class="mb-1">Date</label>
                 <br>
                 <select v-model="filter_meet"  id="filter-meet" class="col-12 mb-2 p-1">
@@ -32,8 +32,9 @@
                     </div>
                 
                     <span class="meet-title">{{meeting.name}}</span>
-                    <excuseYourself :_Id=meeting._id service="meetings" remove_yourself="remove_attendee"></excuseYourself>
-    
+                    <excuseYourself :_Id=meeting._id  :excuseRequiredProp="excuse_required_prop" 
+                    v-on:updatedata="searchMeeting()"></excuseYourself>
+
 
                     <hr>
                     <span class="meet-attendees">Attendees: 
@@ -44,6 +45,7 @@
                     </span>
                     <!-- {{meeting._id}} -->
                     <addMemberToMeeting :_id=meeting._id  dat="cool"></addMemberToMeeting>
+                    
                     <!-- <form @submit="addMemberToMeet" method="post">
                         <select v-model="add_member" id="select-member">
                         <option v-for="member in members" v-bind:value="member" :key="member">
@@ -81,6 +83,11 @@ export default {
             // meeting_id:null,
             meetings:[],
             // members:[]
+            excuse_required_prop:{
+                'service':"meetings",
+                'remove_yourself':"remove_attendee",
+                'refresh_page':"Search_Meetings"
+            }
         }
     },
     components:{
@@ -125,11 +132,12 @@ export default {
              console.log("meetings ",this.meetings);
 
         },
-        searchMeeting(event){
-            event.preventDefault();
+        searchMeeting(){
+            // event
+            // event.preventDefault();
             
             // console.log(this.filter_meet, this.description);
-           
+           this.meetings=[];
             // axios.get('https://mymeetingsapp.herokuapp.com/api/meetings?period='+this.filter_meet+'&search='+ this.description)
             axios.get(`https://mymeetingsapp.herokuapp.com/api/meetings?period=${this.filter_meet}&search=${this.description}`)
             .then(result => this.getMeetings(result.data))
@@ -146,6 +154,8 @@ export default {
         display: inline-block;
         margin-top:1px;
     }
-   
+    .search-meeting-container{
+        background-color: #4ea1a1;
+    }
 
 </style>

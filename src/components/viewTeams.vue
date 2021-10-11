@@ -11,7 +11,7 @@
                 <span class="team-shorname">{{team.shortName}}</span>
                 <p class="team-description">{{team.description}}</p>
                 
-                <excuseYourself :_Id=team._id service="teams" remove_yourself="remove_member"></excuseYourself>
+                <excuseYourself :_Id=team._id service="teams" remove_yourself="remove_member" refresh_page="/teams"></excuseYourself>
                 <hr>
                 <b>Members :</b>
                 <span class="team-members" v-for="member, idx in team.members" :key="idx">{{member.email}},</span>
