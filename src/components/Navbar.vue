@@ -56,6 +56,7 @@ export default {
         // ...mapState( [ 'email' ] ),
         // ...mapGetters( [ 'isAuthenticated' ] )
         email() {
+            console.log("this.$store :", this.$store.state.auth);
             return this.$store.state.auth.email;
         },
         role() {
@@ -68,7 +69,7 @@ export default {
     methods: {
         logout() {
             this.$store.dispatch( 'logout' )
-                .then( () => this.$router.push( { name: 'login' } ) );
+                .then( () => this.$router.push( { name: 'AppLogin' } ) );
         }
     }
 };
