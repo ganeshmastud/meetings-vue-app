@@ -10,13 +10,13 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item ">
+                    <li class="nav-item " v-if="isAuthenticated">
                         <router-link class="nav-link" to="/">Calendar</router-link>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="isAuthenticated">
                         <router-link class="nav-link" to="/meetings">Meetings</router-link>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="isAuthenticated">
                         <router-link class="nav-link " to="/teams">Teams</router-link>
                     </li>
                     
@@ -58,9 +58,6 @@ export default {
         email() {
             console.log("this.$store :", this.$store.state.auth);
             return this.$store.state.auth.email;
-        },
-        role() {
-            return this.$store.state.auth.role;
         },
         isAuthenticated() {
             return this.$store.getters.isAuthenticated;

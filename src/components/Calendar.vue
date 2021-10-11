@@ -196,7 +196,8 @@ export default {
        }
     @media only screen and (min-width: 700px) {
             .meet{
-                width: 96.3%;  
+                width: 96.3%; 
+                 overflow :hidden; 
             }
        }
        @media only screen and (min-width: 900px) {
