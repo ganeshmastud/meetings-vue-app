@@ -24,7 +24,7 @@
                     <span class="time"></span>
                 </li>
             </ul>
-            <div class="calendar-meetings">
+            <div class="calendar-meetings" >
                 <div class="meetings" v-for="(meeting,idx) in meetings" :key="idx" >
                     <div class="meet position-absolute " v-bind:style="{top:meeting.top +'px' , height:meeting.height+'px'}"> 
                         <span claas="meetName" >{{meeting.meeting_name}}</span><br> 
@@ -65,6 +65,11 @@ export default {
     //         height:0
     //     }
     }
+  },
+  computed:{
+      isAuthenticated() {
+            return this.$store.getters.isAuthenticated;
+        }
   },
   methods:{
      
@@ -139,10 +144,13 @@ export default {
   },
   created () {
     //   console.log(typeof this.date_pick);
-     axios
-      .get('https://mymeetingsapp.herokuapp.com/api/calendar?date='+this.date_pick)
-      .then(response => (this.get_meetings(response.data)))
+        if(isAuthenticated){
+            axios
+            .get('https://mymeetingsapp.herokuapp.com/api/calendar?date='+this.date_pick)
+            .then(response => (this.get_meetings(response.data)))
+            }
     }
+     
     
 };
 
