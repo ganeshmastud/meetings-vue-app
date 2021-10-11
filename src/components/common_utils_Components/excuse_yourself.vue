@@ -35,7 +35,11 @@ export default {
             // console.log(" meet id ", this.meeting_Id);    
             axios.patch(`https://mymeetingsapp.herokuapp.com/api/${service}/${_Id}`,
             {},{params:{action:remove_yourself}})
-            // .then(() => this.$emit('updatedata'))
+            .then(() => {
+                console.log("you left the meeting");
+                this.$emit('excuseYourself');
+            }
+            )
             .catch(error => console.log("err ",error));
         }
 

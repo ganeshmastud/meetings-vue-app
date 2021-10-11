@@ -2,6 +2,7 @@
     
     <div class="container col-11">
         <h2> Calendar </h2>
+        <hr>
         <div class="calendar-date d-flex justify-content-between">
             <div class="display-date">
                 <span>{{date_pick}}</span>
@@ -13,7 +14,7 @@
                 
             </div>
         </div>
-        
+        <div class="noOfMeetings" style="text-align:center"><span> Number of meetings you have in a day {{meetings.length}}.</span></div>
         <div class="meetings-in-day position-relative">
             <!-- .hours>(.meeting-hr-$>span.${$}+div.hour.hr-$)*24 -->
             <ul>
@@ -74,7 +75,7 @@ export default {
   methods:{
      
       get_meetings: function(response){
-           console.log(response);
+        //    console.log(response);
        
           response.forEach((item)=>{
             //   meeting.start_time=
@@ -118,7 +119,7 @@ export default {
                
                 
                 // console.log("st ",  this.meeting.top);
-                console.log(meeting.height);
+                // console.log(meeting.height);
                 this.meetings.push(Object.assign({}, meeting));
                 // this.meeting.start_time=0.0;
                 // this.meeting.end_time=0.0;

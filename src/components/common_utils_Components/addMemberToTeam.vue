@@ -3,14 +3,15 @@
     <div class="container p-0 mt-2 mb-2">
         <!-- <span>meet id {{_id}} {{dat}}</span> -->
          <form @submit="addMemberToTeam" method="post">
-                <select v-model="add_member" class="col-6  mr-2 " id="select-member">
+                <select v-model="add_member" class="col-6  mr-2 " id="select-member" required>
                 <option v-for="member,idx in members" v-bind:value="member" :key="idx">
                     {{ member.email }}
                 </option>
                 
             </select>
             
-            <button class="btn btn-success" type="submit">Add</button>
+            <button class="btn btn-success" type="submit" @click="checkIfmemberAdded">Add</button>
+            <div v-if="error" class="error"><span>{{error}}</span> </div>
         </form>
     </div>
 </template>
@@ -22,6 +23,7 @@ export default {
     data(){
         return{
             add_member:null,
+            error:'',
             members:[]
            
         }
@@ -32,7 +34,13 @@ export default {
     },
     methods:{
         //gets all the register user email if and pass it to members array
-        
+        checkIfmemberAdded(){
+            if(this.add_member===null){
+                this.error="Please select member.";
+            }else{
+                this.error='';
+            }
+        },
         
         async addMemberToTeam(event){
             event.preventDefault();
@@ -55,7 +63,11 @@ export default {
                         userId: userId,
                     }
                 }
-            ).then(result => console.log(result));
+            ).then(result =>{
+                console.log("added member to team",result);
+                this.add_member='';
+                this.$emit('memberaddedtoteam');
+            } );
             // console.log(response);
 
             //?action=${this.add_member.email}&userId=${this.add_member._id})
@@ -90,6 +102,9 @@ export default {
     }
     .btn{
         margin-top:-5px;
+    }
+    .error{
+        color:red;
     }
     
 </style>

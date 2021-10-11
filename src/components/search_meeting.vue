@@ -6,7 +6,7 @@
             <form @submit.prevent="searchMeeting" method="get">
                 <label for="filter-meet" class="mb-1">Date</label>
                 <br>
-                <select v-model="filter_meet"  id="filter-meet" class="col-12 mb-2 p-1">
+                <select v-model="filter_meet"  id="filter-meet" class="col-12 mb-2 p-1" required>
                     <!-- <option value=""></option> -->
                     <option value="All" >All</option>
                     <option value="Past">Past</option>
@@ -17,23 +17,26 @@
                 <br>
                 <label for="search-for" class="mb-1">Search for</label><br>
                 <textarea v-model="description" id="search-for" class="col-12 mb-2"
-                    placeholder="Search using words which describe the meeting"></textarea>
+                    placeholder="Search using words which describe the meeting" required></textarea>
                 <br>
-                <button class="btn  btn-submit mb-5" type="submit">Search</button>
+                <button class="btn  btn-submit mb-4" @click="checkFormData()" type="submit">Search</button>
             </form>
+            <div v-if="checkformdata" class="note">Note: <span>{{checkformdata}}</span></div>
         </div>
         <div class="container col-12 p-0">
             <h3 class="p-0">Meetings matching search criteria</h3>
+            <div v-if="error" class="error"><span>{{error}}</span></div>
+            <div v-else><span>Number of meeting we are able to find related to your search are {{meetings.length}}.</span></div>
             <hr>
              <div class="card meeting-card pl-2 mb-4  rounded-lg" v-for="(meeting,idx) in meetings" :key="idx">
-                
+                <!-- <div class="meet"+"idx"></div> -->
                     <div class="date-time d-flex flex-row ">
                         <h4 class=" mr-3"> {{meeting.date}} </h4><span class="meet-time">{{meeting.startTime}} - {{meeting.endTime}}</span>
                     </div>
                 
                     <span class="meet-title">{{meeting.name}}</span>
                     <excuseYourself :_Id=meeting._id  :excuseRequiredProp="excuse_required_prop" 
-                    v-on:updatedata="searchMeeting()"></excuseYourself>
+                    v-on:excuseYourself="excuseYourself()"></excuseYourself>
 
 
                     <hr>
@@ -44,7 +47,7 @@
                     
                     </span>
                     <!-- {{meeting._id}} -->
-                    <addMemberToMeeting :_id=meeting._id  dat="cool"></addMemberToMeeting>
+                    <addMemberToMeeting :_id=meeting._id  dat="cool" @memberaddedtomeeting="memberaddedtomeeting"></addMemberToMeeting>
                     
                     <!-- <form @submit="addMemberToMeet" method="post">
                         <select v-model="add_member" id="select-member">
@@ -82,6 +85,8 @@ export default {
             add_member:null,
             // meeting_id:null,
             meetings:[],
+            error:'',
+            checkformdata:'',
             // members:[]
             excuse_required_prop:{
                 'service':"meetings",
@@ -90,11 +95,27 @@ export default {
             }
         }
     },
+    // computed:{
+    //     noOfMeetings
+    // },
     components:{
         addMemberToMeeting,
         excuseYourself
     },
     methods: {
+        checkFormData(){
+            if(this.filter_meet===null || this.description===null){
+                this.checkformdata="Please fill all the details."
+            }else{
+                 this.checkformdata='';
+            }
+        },
+        excuseYourself(){
+            this.searchMeeting();
+        },
+        memberaddedtomeeting(){
+            this.searchMeeting();  
+        },
         getAttendess(attendees){
             let members=[];
             attendees.forEach(member=>{
@@ -129,7 +150,12 @@ export default {
                  this.meetings.push(Object.assign({}, meeting));
              })
              
-             console.log("meetings ",this.meetings);
+            //  console.log("meetings ",this.meetings);
+            if(this.meetings.length===0){
+                this.error="There is no meeting available related to your search."
+            }else{
+                this.error=""
+            }
 
         },
         searchMeeting(){
@@ -140,7 +166,11 @@ export default {
            this.meetings=[];
             // axios.get('https://mymeetingsapp.herokuapp.com/api/meetings?period='+this.filter_meet+'&search='+ this.description)
             axios.get(`https://mymeetingsapp.herokuapp.com/api/meetings?period=${this.filter_meet}&search=${this.description}`)
-            .then(result => this.getMeetings(result.data))
+            .then(result => {
+                this.getMeetings(result.data)
+                this.filter_meet=null;
+                this.description=null;
+            })
             
         },
        
@@ -152,7 +182,7 @@ export default {
 <style scoped>
     .meet-time{
         display: inline-block;
-        margin-top:1px;
+        margin-top:6px;
     }
     .search-meeting-container{
         background-color: #4ea1a1;
@@ -163,5 +193,14 @@ export default {
     .btn-submit:hover{
          background-color: #70afaf;
     }
-
+    .meeting-card:hover{
+        border: 2px solid goldenrod;
+        /* border-color: rgb(150, 146, 137); */
+    }
+    .error{
+        color:red;
+    }
+    .note{
+        color:white;
+    }
 </style>

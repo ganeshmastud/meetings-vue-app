@@ -10,7 +10,7 @@
                 
             </select>
             
-            <button class="btn btn-success ml-2 " type="submit">Add</button>
+            <button class="btn btn-success ml-2 " @click="checkIfmemberAdded" type="submit">Add</button>
         </form>
     </div>
 </template>
@@ -33,12 +33,18 @@ export default {
     },
     methods:{
         //gets all the register user email if and pass it to members array
+        checkIfmemberAdded(){
+            if(this.add_member===null){
+                this.error="Please select member.";
+            }else{
+                this.error='';
+            }
+        },
         
-        
-         addMemberToMeet(event){
+         async addMemberToMeet(event){
             event.preventDefault();
             // console.log("id ",this.meeting_id);
-            console.log("member ",this._id);
+            // console.log("member ",this._id);
             const userId=this.add_member.userId;
             // const add_attendee = this.add_member.email;
             const meetingId=this._id;
@@ -47,7 +53,7 @@ export default {
             // then(result => console.log("result",result)).
             // catch(error => console.log("err ", error));
             // const response = 
-             axios.patch(
+             await axios.patch(
                 `https://mymeetingsapp.herokuapp.com/api/meetings/${meetingId}`,
                 {},
                 {
@@ -56,7 +62,11 @@ export default {
                         userId: userId,
                     }
                 }
-            ).then(result => console.log(result));
+            ).then(result => {
+                console.log("member added to meet",result);
+                this.add_member=''
+                this.$emit('memberaddedtomeeting');
+            });
             // console.log(response);
 
             //?action=${this.add_member.email}&userId=${this.add_member._id})
@@ -68,7 +78,7 @@ export default {
             // console.log("meetid ",this._id);
             // console.log("dat", this.props.dat);
         let members =[];
-        axios.get('https://mymeetingsapp.herokuapp.com/api/users')
+         axios.get('https://mymeetingsapp.herokuapp.com/api/users')
         .then(result =>{
             result.data.forEach(member =>{
                 let obj={}

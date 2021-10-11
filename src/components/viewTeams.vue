@@ -11,14 +11,21 @@
                 <span class="team-shorname">{{team.shortName}}</span>
                 <p class="team-description">{{team.description}}</p>
                 
-                <excuseYourself :_Id=team._id service="teams" remove_yourself="remove_member" refresh_page="/teams"></excuseYourself>
+                <excuseYourself :_Id=team._id :excuseRequiredProp="excuse_required_prop" 
+                 v-on:excuseYourself="excuseYourself()"></excuseYourself>
                 <hr>
-                <b>Members :</b>
-                <span class="team-members" v-for="member, idx in team.members" :key="idx">{{member.email}},</span>
+                <div class="all-team-members">
+                    <b>Members :</b>
+                    <div class="team-members" :style="team.members.length>3? scrollmembers:scrollhidden">
+                        <div class="team-member" v-for="member, idx in team.members" :key="idx">{{member.email}},</div>
 
-                <addMemberToTeam :_id=team._id ></addMemberToTeam>
+                    </div>
+
+                </div>
                 
-            </div>
+                <addMemberToTeam :_id=team._id v-on:memberaddedtoteam="memberaddedtoteam()"></addMemberToTeam>
+                
+            </div>  
             <div class="card team-card addTeam pl-2  mb-4 d-flex justify-content-lg-center justify-content-md-center
             align-items-md-center align-items-lg-center"  @click="teamForm=!teamForm"> 
                 <span @click="teamForm=!teamForm" class="add-team">+</span>
@@ -31,7 +38,7 @@
         </div>
          <div v-if="teamForm" class="addTeamForm" >
              <!-- closeAddTeamForm($event)  -->
-                <addTeam  :addTeamForm=teamForm v-on:closeForm="closeAddTeamForm($event)"></addTeam>
+                <addTeam  :addTeamForm=teamForm v-on:closeForm="closeAddTeamForm($event)" ></addTeam>
         </div>
 
     </div>
@@ -54,17 +61,39 @@ export default {
     data(){
         return{
             teams:[],
-            teamForm:false
+            teamForm:false,
+            scrollmembers:{
+                'overflow-y':'scroll'
+            },
+            scrollhidden:{
+                'overflow':'hidden'
+            },
+            excuse_required_prop:{
+                'service':"teams",
+                'remove_yourself':"remove_member",
+                'refresh_page':"Teams"
+            }
+            // service="teams"    remove_yourself="remove_member" refresh_page="/teams"
         }
     },
     methods:{
+        excuseYourself(){
+            console.log("you excuse yourself")
+            this.getTeams();
+        },
+        memberaddedtoteam:function(){
+            console.log("member added to team");
+            this.getTeams();
+        },
         closeAddTeamForm: function(data){
             // console.log("reaced here");
             // alert("data", data);
             this.teamForm = data;
+            this.getTeams();  
             // console.log("teamform state: ",this.teamForm);
         },
         viewTeams(result){
+             this.teams=[],
             result.forEach(response =>{ 
                 let team={};
                 team._id = response._id;
@@ -76,13 +105,16 @@ export default {
                 
             })
             // console.log("teams ",this.teams);
-        }
-    },
-    created(){
-         axios.get(`https://mymeetingsapp.herokuapp.com/api/teams`)
+        },
+        getTeams(){
+            axios.get(`https://mymeetingsapp.herokuapp.com/api/teams`)
             .then(result => this.viewTeams(result.data))
             .catch(error => console.log(error));
-            
+        } 
+       
+    },
+    created(){
+            this.getTeams();    
     }
 
 
@@ -105,8 +137,15 @@ export default {
         display: inline-block;
         font-size: 3em;  
     }
+    .team-member{
+        display: block;
+        
+    }
+    .team-card:hover{
+        border:2px solid goldenrod;
+    }
     .team-members{
-        display: inline-block;
+        height:4em;
     }
      @media only screen and (max-width: 700px) {
          .addTeam{

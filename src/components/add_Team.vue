@@ -3,22 +3,25 @@
         <div class="add-team-form  pl-2 pr-2 rounded-lg">
             <h3 style="text-align:center">Add New Team</h3>
             <hr>
-             <form @submit="addTeam" method="post">
+            <div v-if="msg" class="error"><span>{{msg}}</span> </div>
+             <form @submit.prevent="addTeam" method="post">
                 <label for="name" class="mb-1">name</label> <br>
-                <input class="col-12 mb-2" type="text" id="name" v-model="addteam.name"><br>
+                <input class="col-12 mb-2" type="text" id="name" v-model="addteam.name" required><br>
                 
                 <label for="shortname" class="mb-1">Short Name</label> <br>
-                <input class="col-12 mb-2" type="text" id="shortname" v-model="addteam.shortName"><br>
+                <input class="col-12 mb-2" type="text" id="shortname" v-model="addteam.shortName" required><br>
                 
                 <label for="description" class="mb-1">Description</label><br>
-                <textarea class="col-12 mb-2" v-model="addteam.description" id="description"  placeholder="What team describes"></textarea>
+                <textarea class="col-12 mb-2" v-model="addteam.description" id="description" 
+                 placeholder="What team describes" required></textarea>
                 <br>
                 
                 <label for="add-team" class="mb-1">EmailIDs of attendees, or team's short</label><br>
-                <input class="col-12 mb-4" type="text" id="add-team"   placeholder="john@example.com, @annual-day, mark@example.com"
-                    v-model="addMembers">
+                <input class="col-12 mb-4" type="text" id="add-team"   
+                placeholder="john@example.com, @annual-day, mark@example.com"
+                    v-model="addMembers" required>
         
-                <button class="btn btn-submit col-12 mb-4" type="submit">Add Team</button>
+                <button class="btn btn-submit col-12 mb-4" v-on:click="checkforError()" type="submit">Add Team</button>
                 
             </form>
             <div class="close-form" @click="closeTeamForm" >
@@ -37,6 +40,7 @@ export default {
     data(){
         return{
             addMembers:null,
+            msg:'',
             addteam:{
                 name:null,
                 shortName:null,
@@ -45,6 +49,7 @@ export default {
                 members:[]
 
             }
+            
             
         }
         
@@ -55,14 +60,24 @@ export default {
     ,
     methods:{
         closeTeamForm: function(){
-            console.log("reacg 1")
+            // console.log("reach 1")
             // this.addTeamForm=true;   if data chagne in here it can also be change in parent component
             this.$emit('closeForm',false)
             // console.log("close form event",event);
             // alert(",this.addTeamForm ",true);
         },
-        addTeam(event){
-            event.preventDefault();
+        checkforError(){
+            if( this.addMembers ===null || this.addteam.name === null || this.addteam.shortName ===null || this.addteam.description ===null){
+                this.msg = "Please fill the complete form."
+            }else{
+                this.msg=''
+            }
+            // alert(this.msg);
+        },
+        addTeam(){
+            // event.preventDefault();
+            
+
             this.addMembers = this.addMembers.replace(' ','')
             let team_members= [];
             team_members= this.addMembers.split(",");
@@ -72,6 +87,9 @@ export default {
             axios.post('https://mymeetingsapp.herokuapp.com/api/teams', this.addteam)
             .then( (result) =>{
                 console.log(result);
+                // this.$emit('reload_data'); //trying to add multiple funciton to emit
+                this.closeTeamForm();
+                // this.$route.push({name:'/teams'})
             })
             // console.log("data ",this.name, this.shortname,this.description,this.teamMembers);
         }
@@ -117,6 +135,8 @@ export default {
     .btn-submit:hover{
          background-color: #70afaf;
     }
-       
+    .error{
+        color:red;
+    }
 
 </style>
