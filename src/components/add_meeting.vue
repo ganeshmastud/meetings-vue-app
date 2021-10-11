@@ -1,5 +1,5 @@
 <template>
-    <div class="container col-12 pr-2 bg-primary rounded-lg">
+    <div class="container add-meeting-container col-12 pr-2  rounded-lg">
         <h3 class="pt-2">Add a new meeting</h3>
         <hr>
          <div class="add-meeting">
@@ -23,7 +23,7 @@
                     v-model="addmembers">
                 <br><span class="note mb-3">Seperate emailids / team short names by commas - team short names always beginwith @</span> 
                 <br>
-                <button class="btn btn-success mb-5" type="submit">Add meeting</button>
+                <button class="btn btn-submit mb-5" type="submit">Add meeting</button>
             </form>
             
         </div>
@@ -102,5 +102,14 @@ export default {
 <style scoped>
     .note{
         display: inline-block;
+    }
+    .add-meeting-container{
+        background-color: #4ea1a1;
+    }
+    .btn-submit{
+         background-color: #276969;
+    }
+    .btn-submit:hover{
+         background-color: #70afaf;
     }
 </style>

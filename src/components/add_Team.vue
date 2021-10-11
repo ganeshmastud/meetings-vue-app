@@ -1,6 +1,6 @@
 <template>
     <div class="container add-team-container col-4 ">
-        <div class="add-team-form bg-primary pl-2 pr-2 rounded-lg">
+        <div class="add-team-form  pl-2 pr-2 rounded-lg">
             <h3 style="text-align:center">Add New Team</h3>
             <hr>
              <form @submit="addTeam" method="post">
@@ -18,7 +18,7 @@
                 <input class="col-12 mb-4" type="text" id="add-team"   placeholder="john@example.com, @annual-day, mark@example.com"
                     v-model="addMembers">
         
-                <button class="btn btn-success col-12 mb-4" type="submit">Add Team</button>
+                <button class="btn btn-submit col-12 mb-4" type="submit">Add Team</button>
                 
             </form>
             <div class="close-form" @click="closeTeamForm" >
@@ -26,7 +26,7 @@
             </div>
         </div>  
         
-       {{addTeamForm}}
+       <!-- {{addTeamForm}} -->
     </div>
 </template>
 
@@ -81,8 +81,10 @@ export default {
 </script>
 
 <style >
+
     .add-team-container{
         position: relative;
+        
     }
     .add-team-form{
         position:fixed;
@@ -90,7 +92,7 @@ export default {
         
         /* margin-top:5em; */
         overflow: hidden;
-        
+        background-color: #4ea1a1;   
     }
     
     .close-form {
@@ -109,5 +111,12 @@ export default {
         overflow: hidden;
         
     } */
+    .btn-submit{
+         background-color: #276969;
+    }
+    .btn-submit:hover{
+         background-color: #70afaf;
+    }
+       
 
 </style>

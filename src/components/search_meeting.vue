@@ -19,7 +19,7 @@
                 <textarea v-model="description" id="search-for" class="col-12 mb-2"
                     placeholder="Search using words which describe the meeting"></textarea>
                 <br>
-                <button class="btn btn-success mb-5" type="submit">Search</button>
+                <button class="btn  btn-submit mb-5" type="submit">Search</button>
             </form>
         </div>
         <div class="container col-12 p-0">
@@ -156,6 +156,12 @@ export default {
     }
     .search-meeting-container{
         background-color: #4ea1a1;
+    }
+    .btn-submit{
+         background-color: #276969;
+    }
+    .btn-submit:hover{
+         background-color: #70afaf;
     }
 
 </style>
