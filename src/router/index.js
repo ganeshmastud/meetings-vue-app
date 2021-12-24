@@ -5,10 +5,11 @@ import Calendar from '@/components/Calendar';
 import Meetings from '@/components/Meetings';
 import search_meetings from '@/components/search_meeting';
 import add_meeting from '@/components/add_meeting';
-import Teams from '@/components/Teams'
-import Login from '@/components/Login'
-import Signup from '@/components/signup'
-import PageNotFound  from '@/components/pageNotFound'
+import Teams from '@/components/Teams';
+import Login from '@/components/Login';
+import Signup from '@/components/signup';
+import data_table from '@/components/Table';
+import PageNotFound  from '@/components/pageNotFound';
 const router = new Router({
     mode: 'history',
     routes:[
@@ -51,6 +52,11 @@ const router = new Router({
 
             ]
 
+        },
+        {
+            name: 'Data_Table',
+            path: '/table',
+            component: data_table
         },
          {   
             name:'PageNotFound',

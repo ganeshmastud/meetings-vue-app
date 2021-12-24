@@ -66,8 +66,8 @@
                 if(this.form.email.length >0 && this.form.password.length > 0){
                     this.$store.dispatch( 'login', this.form )
                     .then( () =>{
-                        
-                        alert("Login Successfully");
+                        // console.log(res);
+                        // alert("Login Successfully");
                         // setTimeout(()=>{
                         //     this.error="Login Successfully";
                         // },1000)

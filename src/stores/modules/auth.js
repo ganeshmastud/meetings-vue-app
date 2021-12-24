@@ -35,7 +35,7 @@ const auth = {
                         .then( data => {
                             // in meeting app the token may be in token, not authToken
                             const { token, email } = data
-        
+                            // console.log("token :",token);
                             localStorage.setItem( KEY_TOKEN, token );
                             localStorage.setItem( KEY_EMAIL, email );
                             // localStorage.setItem( KEY_ROLE, role );
@@ -54,6 +54,7 @@ const auth = {
         
             commit( 'setToken', '' );
             commit( 'setEmail', '' );
+            console.log("state token :",this.state.token);
             // commit( 'setRole', '' );
 
             return Promise.resolve();
@@ -62,3 +63,5 @@ const auth = {
 };
 
 export default auth;
+
+

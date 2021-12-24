@@ -23,6 +23,9 @@
                     <!-- <li class="nav-item">
                         <router-link to="/" >logut</router-link>
                     </li> -->
+                    <li class="nav-item">
+                        <router-link class="nav-link"  to="/table" exact>Table</router-link>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav">
                     <li class="nav-item" v-if="isAuthenticated">

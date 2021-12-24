@@ -149,13 +149,16 @@ export default {
   },
   created () {
     //   console.log(typeof this.date_pick);
-        if(this.isAuthenticated){
-            axios
-            .get('https://mymeetingsapp.herokuapp.com/api/calendar?date='+this.date_pick)
-            .then(response => (this.get_meetings(response.data)))
+       if(this.isAuthenticated ){
+           this.fetchMeetingsData();
+            // await axios
+            // .get('https://mymeetingsapp.herokuapp.com/api/calendar?date='+this.date_pick)
+            // .then(response => (this.get_meetings(response.data)))
 
             // this.date_pick = dateFilter(this.date_pick, 'local');
-            }
+        }else{
+            alert("user is not authenticated")
+        }
     }
      
     

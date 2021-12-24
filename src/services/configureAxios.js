@@ -10,6 +10,7 @@ axios.interceptors.request.use(
             // 'Bearer <token>' is just the requirement for workshops app
             // In meetings app only token is sent (no 'Bearer ' prefix should be passed)
             request.headers['Authorization'] = apiToken;
+            console.log("from configAxios js :",apiToken);
         // }
 
         return request;
